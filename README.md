@@ -23,3 +23,11 @@
     - the cost upfront will be $1.32 * 100 = $132
     - if the MSFT rises above $455, say $460 before or on the expiration date, the investor can choose to exercise the option to buy the security at the pre-determined strike price of $455, then immediately proceed to resell it at the new price of $460, netting a profit of ($5 - $1.32) * 100 = $368 (significantly higher returns than purchasing the underlying directly
     - if the stock fell to $400, the option would expire worthless and the investor would be out the premium of $132
+
+### usage
+#### development
+1. navigate to `venv/bin`
+2. run `source activate` (on unix)
+3. run `pip install`s here
+4. `cd` to directory with python script and run
+6. run `deactivate` when done
