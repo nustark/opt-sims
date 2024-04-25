@@ -1,6 +1,7 @@
 /venv
 /src/trade_engine/__pycache__
 /src/app/__pycache__
+/src/charts/__pycache__
 
 .DS_Store
 .env
