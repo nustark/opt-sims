@@ -26,8 +26,8 @@
 
 ### usage
 #### development
-1. navigate to `venv/bin`
+1. navigate to "venv/bin"
 2. run `source activate` (on unix)
-3. run `pip install`s here
+3. run `pip install` here (if necessary)
 4. `cd` to directory with python script and run
 6. run `deactivate` when done
