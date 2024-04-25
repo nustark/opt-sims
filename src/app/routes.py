@@ -7,7 +7,7 @@ app_routes = Blueprint('app_routes', __name__)
 
 @app_routes.route("/")
 def hello():
-    return "Hello World!"
+    return "Welcome to Optionz, your favorite paper trading tool."
 
 
 @app_routes.route('/api/options', methods=['GET'])

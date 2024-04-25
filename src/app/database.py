@@ -6,7 +6,6 @@ from pymongo import MongoClient
 env_file = find_dotenv(".env")
 load_dotenv(env_file)
 
-# app = Flask(__name__)
 cluster = MongoClient(os.environ.get("MONGODB_ATLAS_URI"))
 
 db = cluster["optionz-db-dev"]
