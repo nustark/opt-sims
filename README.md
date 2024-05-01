@@ -2,6 +2,13 @@
 ## optionz
 
 ### requirements
+#### stack/technology
+- python
+- flask
+- mongodb
+- pydantic (validations)
+- alphavantage (via requests)
+
 #### functional
 - users can view historical and timeline data for an underlying security
 - users should be able to buy or sell a call or put option for an underlying security (ignoring stocks for now)

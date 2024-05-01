@@ -1,3 +1,7 @@
+import json
+from bson import ObjectId
+
+
 class Option:
     def __init__(self, symbol, expiration_date, strike_price, option_type, quantity):
         self.symbol = symbol
@@ -43,3 +47,11 @@ class Option:
             # Update user's portfolio, cash balance, etc.
         else:
             print("Invalid order type.")
+
+
+class JSONEncoder(json.JSONEncoder):
+    # overrides default method to handle objectId deserialization
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
