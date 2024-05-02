@@ -9,6 +9,9 @@
 - pydantic (validations)
 - alphavantage (via requests)
 
+#### todos
+- sell option call/puts (query db for available options for security) 
+
 #### functional
 - users can view historical and timeline data for an underlying security
 - users should be able to buy or sell a call or put option for an underlying security (ignoring stocks for now)
@@ -36,5 +39,5 @@
 1. navigate to "venv/bin"
 2. run `source activate` (on unix)
 3. run `pip install` here (if necessary)
-4. `cd` to directory with python script and run
+4. `cd` to directory with python script and run, eg: `python main.py`
 6. run `deactivate` when done

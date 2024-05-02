@@ -2,13 +2,15 @@
 import json
 from flask import Blueprint, render_template, session, abort, jsonify, request
 from pydantic import ValidationError
-from app.database import option_collection, OptionDatabase
+from app.database import option_collection, OptionDatabase, UserDatabase, TransactionDatabase
 from charts.module1 import query_ticker
 from trade_engine.module2 import OptionData
 
 
 app_routes = Blueprint('app_routes', __name__)
 option_db = OptionDatabase()
+user_db = UserDatabase()
+transact_db = TransactionDatabase
 
 
 @app_routes.route("/")
