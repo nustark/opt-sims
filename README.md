@@ -11,6 +11,7 @@
 
 #### todos
 - sell option call/puts (query db for available options for security) 
+- split `database.py` into different files for each collection
 
 #### functional
 - users can view historical and timeline data for an underlying security

@@ -1,6 +1,7 @@
 
 import json
-from flask import Blueprint, render_template, session, abort, jsonify, request
+from flask import Blueprint, render_template, session, abort, jsonify, request, redirect, url_for
+from flask_dance.contrib.google import google
 from pydantic import ValidationError
 from app.database import option_collection, OptionDatabase, UserDatabase, TransactionDatabase
 from charts.module1 import query_ticker
@@ -14,8 +15,12 @@ transact_db = TransactionDatabase
 
 
 @app_routes.route("/")
-def hello():
-    return "Welcome to Optionz, your favorite paper trading tool."
+def login():
+    if not google.authorized:
+        return redirect(url_for("google.login"))
+    resp = google.get("/oauth2/v1/userinfo")
+    assert resp.ok, resp.text
+    return "Hi {email}, welcome to Optionz, your favorite paper trading tool".format(email=resp.json()["email"])
 
 
 @app_routes.route('/api/options', methods=['GET'])
