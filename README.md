@@ -8,10 +8,12 @@
 - mongodb
 - pydantic (validations)
 - alphavantage (via requests)
+- oauth2 (auth)
 
 #### todos
+- map users to transactions
 - sell option call/puts (query db for available options for security) 
-- split `database.py` into different files for each collection
+- ~~split `database.py` into different files for each collection~~
 
 #### functional
 - users can view historical and timeline data for an underlying security

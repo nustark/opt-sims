@@ -23,19 +23,31 @@ def login():
         return redirect(url_for("google.login"))
     resp = google.get("/oauth2/v1/userinfo")
     assert resp.ok, resp.text
-    return "Hi {email}, welcome to Optionz, your favorite paper trading tool".format(email=resp.json()["email"])
+    # return "Hi {email}, welcome to Optionz, your favorite paper trading tool".format(email=resp.json()["email"])
+    email = resp.json()["email"]
+    user_doc = user_db.get_user_by_email(email)
+
+    if user_doc:
+        session['user_id'] = int(user_doc['_id'])
+        return f"Hi {user_doc['display_name']} (id: {user_doc['_id']}), welcome to Optionz, your favorite paper trading tool"
+    else:
+        # Handle the case where the user is not found in the database
+        return "User not found in the database"
 
 
-@app_routes.route('/api/options', methods=['GET'])
+@ app_routes.route('/api/options', methods=['GET'])
 def get_options():
     try:
-        options = option_db.get_all_options()
+        user_id = session.get('user_id')
+        print(user_id)
+        # options = option_db.get_all_options()
+        options = option_db.get_options_by_user_id(user_id)
         return jsonify(json.loads(json.dumps(options, default=str))), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
 
-@app_routes.route('/api/trade', methods=['POST'])
+@ app_routes.route('/api/trade', methods=['POST'])
 def execute_trade():
     try:
         trade_data = OptionData(**request.json)
@@ -47,7 +59,7 @@ def execute_trade():
     return jsonify({"message": "Trade executed successfully"})
 
 
-@app_routes.route('/api/chart/getInfo', methods=['GET'])
+@ app_routes.route('/api/chart/getInfo', methods=['GET'])
 def get_chart():
     try:
         ticker_symbol = request.args.get('ticker')

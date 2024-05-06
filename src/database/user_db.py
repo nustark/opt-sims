@@ -17,3 +17,10 @@ class UserDatabase:
         except Exception as e:
             print(f"Error retrieving users: {e}")
             return []
+
+    def get_user_by_email(self, email) -> dict:
+        try:
+            return self.user_collection.find_one({"email": email})
+        except Exception as e:
+            print(f"Error retrieving user by email: {e}")
+            return None

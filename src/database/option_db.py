@@ -17,3 +17,14 @@ class OptionDatabase:
         except Exception as e:
             print(f'Error retrieving options: {e}')
             return []
+
+    def get_options_by_user_id(self, user_id) -> list:
+        try:
+            if user_id:
+                return list(self.collection.find({'user_id': user_id}))
+            else:
+                print('User ID not found in session')
+                return []
+        except Exception as e:
+            print(f'Error retrieving options by user ID: {e}')
+            return []
