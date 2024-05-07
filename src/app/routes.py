@@ -3,18 +3,22 @@ import json
 from flask import Blueprint, render_template, session, abort, jsonify, request, redirect, url_for
 from flask_dance.contrib.google import google
 from pydantic import ValidationError
-# from database.database import option_collection, OptionDatabase, UserDatabase, TransactionDatabase
 from database.option_db import OptionDatabase
 from database.transaction_db import TransactionDatabase
 from database.user_db import UserDatabase
-from charts.module1 import query_ticker
-from trade_engine.module2 import OptionData
+from charts.alpha_vantage import query_ticker
+from trade_engine.models import OptionData
+from trade_engine.util_functions import *
 
 
 app_routes = Blueprint('app_routes', __name__)
 option_db = OptionDatabase()
 user_db = UserDatabase()
 transact_db = TransactionDatabase
+
+'''
+server routes
+'''
 
 
 @app_routes.route("/")
@@ -35,6 +39,11 @@ def login():
         return "User not found in the database"
 
 
+'''
+db crud routes
+'''
+
+
 @ app_routes.route('/api/options', methods=['GET'])
 def get_options():
     try:
@@ -48,7 +57,7 @@ def get_options():
 
 
 @ app_routes.route('/api/trade', methods=['POST'])
-def execute_trade():
+def insert_trade():
     try:
         trade_data = OptionData(**request.json)
         option_db.insert_option(trade_data.dict())
@@ -56,7 +65,31 @@ def execute_trade():
         return jsonify({"error": str(e)}), 400
 
     print(trade_data.dict())
+    return jsonify({"message": "Trade inserted successfully in database"})
+
+
+'''
+trade engine routes
+'''
+
+
+@ app_routes.route('/api/trade/execute', methods=['POST'])
+def execute_trade():
+    try:
+        trade_data = OptionData(**request.json)
+        # hard-coded execution price/date
+        calculate_option_profit(trade_data, 125.00, datetime(2023, 6, 15))
+        option_db.insert_option(trade_data.dict())
+    except ValidationError as e:
+        return jsonify({"error": str(e)}), 400
+
+    print(trade_data.dict())
     return jsonify({"message": "Trade executed successfully"})
+
+
+'''
+data/chart ticker routes
+'''
 
 
 @ app_routes.route('/api/chart/getInfo', methods=['GET'])
