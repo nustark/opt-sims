@@ -1,5 +1,5 @@
 
-## optionz
+## opt-sims
 
 ### requirements
 #### stack/technology
