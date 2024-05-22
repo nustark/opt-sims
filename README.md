@@ -12,6 +12,7 @@
 
 #### todos
 - map users to transactions
+- use more accurate formula to calculate option premium (assuming simplified 1% for now but it doesn't account for volatility, other market factors; black-scholes)
 - sell option call/puts (query db for available options for security) 
 - ~~split `database.py` into different files for each collection~~
 

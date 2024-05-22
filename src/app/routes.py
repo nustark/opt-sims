@@ -77,6 +77,7 @@ trade engine routes
 def execute_trade():
     try:
         trade_data = OptionData(**request.json)
+        # fetch ticker data from alphavantage, pass into util function
         # hard-coded execution price/date
         calculate_option_profit(trade_data, 125.00, datetime(2023, 6, 15))
         option_db.insert_option(trade_data.dict())
