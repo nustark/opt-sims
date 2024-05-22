@@ -6,7 +6,7 @@ from pydantic import ValidationError
 from database.option_db import OptionDatabase
 from database.transaction_db import TransactionDatabase
 from database.user_db import UserDatabase
-from charts.alpha_vantage import query_ticker
+from charts.alpha_vantage import query_ticker, query_ticker_by_date
 from trade_engine.models import OptionData
 from trade_engine.util_functions import *
 
@@ -98,5 +98,14 @@ def get_chart():
     try:
         ticker_symbol = request.args.get('ticker')
         return query_ticker(ticker_symbol).json(), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+@ app_routes.route('/api/chart/getInfoByDate', methods=['GET'])
+def get_chart_by_date():
+    try:
+        ticker_symbol = request.args.get('ticker')
+        return query_ticker_by_date(ticker_symbol, '1'), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500

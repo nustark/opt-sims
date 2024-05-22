@@ -40,8 +40,14 @@
 
 ### usage
 #### development
+##### running
 1. navigate to "venv/bin"
 2. run `source activate` (on unix)
 3. run `pip install` here (if necessary)
 4. `cd` to directory with python script and run, eg: `python main.py`
 6. run `deactivate` when done
+
+##### testing in Postman with session
+1. copy value from `storage`->`cookies` in the browser
+2. copy `Value`
+3. manage cookies in postman and set name = `session` and value equal to `Value` from the browser
