@@ -11,8 +11,9 @@
 - oauth2 (auth)
 
 #### todos
+- execute option, calculate profit, add to transaction table
 - frontend ui
-- map users to transactions
+- ~~map users to transactions~~
 - use more accurate formula to calculate option premium (assuming simplified 1% for now but it doesn't account for volatility, other market factors; black-scholes)
 - sell option call/puts (query db for available options for security) 
 - ~~split `database.py` into different files for each collection~~
@@ -52,3 +53,6 @@
 1. copy value from `storage`->`cookies` in the browser
 2. copy `Value`
 3. manage cookies in postman and set name = `session` and value equal to `Value` from the browser
+
+### links
+- https://www.investopedia.com/terms/o/option.asp
