@@ -1,3 +1,5 @@
+
+from datetime import datetime
 from database.db import option_collection
 
 
@@ -18,10 +20,14 @@ class OptionDatabase:
             print(f'Error retrieving options: {e}')
             return []
 
-    def get_options_by_user_id(self, user_id) -> list:
+    def get_valid_options_by_user_id(self, user_id) -> list:
         try:
             if user_id:
-                return list(self.collection.find({'user_id': user_id}))
+                current_time = datetime.utcnow()
+                return list(self.collection.find({
+                    'user_id': user_id,
+                    'expiration_date': {'$gte': str(current_time)}
+                }))
             else:
                 print('User ID not found in session')
                 return []

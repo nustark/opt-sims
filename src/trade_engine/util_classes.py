@@ -3,6 +3,7 @@ from bson import ObjectId
 
 
 class Option:
+    # not used atm
     def __init__(self, symbol, expiration_date, strike_price, option_type, quantity):
         self.symbol = symbol
         self.expiration_date = expiration_date

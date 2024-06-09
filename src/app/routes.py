@@ -48,9 +48,7 @@ db crud routes
 def get_options():
     try:
         user_id = session.get('user_id')
-        print(user_id)
-        # options = option_db.get_all_options()
-        options = option_db.get_options_by_user_id(user_id)
+        options = option_db.get_valid_options_by_user_id(user_id)
         return jsonify(json.loads(json.dumps(options, default=str))), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500

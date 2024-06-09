@@ -14,7 +14,7 @@ def query_ticker(ticker):
 
 def query_ticker_by_date(ticker, date):
     # hardcoded date for now
-    date = '2024-01-02'
+    date = '2024-02-02'
     data = query_ticker(ticker).json()
     # just assume open date for now
     return data['Time Series (Daily)'][date]['1. open']
