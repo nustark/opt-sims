@@ -12,6 +12,7 @@
 
 #### todos
 - execute option, calculate profit, add to transaction table
+    - redo optiondata model class to handle get/post flows differently (inherit from common base class)
 - frontend ui
 - ~~map users to transactions~~
 - use more accurate formula to calculate option premium (assuming simplified 1% for now but it doesn't account for volatility, other market factors; black-scholes)

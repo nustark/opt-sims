@@ -7,14 +7,14 @@ from database.option_db import OptionDatabase
 from database.transaction_db import TransactionDatabase
 from database.user_db import UserDatabase
 from charts.alpha_vantage import query_ticker, query_ticker_by_date
-from trade_engine.models import OptionData
+from trade_engine.models import OptionData, TransactionData
 from trade_engine.util_functions import *
 
 
 app_routes = Blueprint('app_routes', __name__)
 option_db = OptionDatabase()
 user_db = UserDatabase()
-transact_db = TransactionDatabase
+transact_db = TransactionDatabase()
 
 '''
 server routes
@@ -76,9 +76,22 @@ def execute_trade():
     try:
         trade_data = OptionData(**request.json)
         # fetch ticker data from alphavantage, pass into util function
+        transaction_data = TransactionData(
+            symbol=trade_data.symbol,
+            quantity=trade_data.quantity,
+            strike_price=trade_data.strike_price,
+            expiration_date=trade_data.expiration_date,
+            option_type=trade_data.option_type,
+            action=trade_data.action,
+            user_id=trade_data.user_id,
+            option_data_id=trade_data.id
+        )
         # hard-coded execution price/date
-        calculate_option_profit(trade_data, 125.00, datetime(2023, 6, 15))
-        option_db.insert_option(trade_data.dict())
+        print('profit: ', calculate_option_profit(
+            trade_data, 1300.00, datetime(2024, 6, 15)))
+        print('transaction object: ', transaction_data)
+        # option_db.insert_option(trade_data.dict())
+        transact_db.insert_transaction(transaction_data.dict())
     except ValidationError as e:
         return jsonify({"error": str(e)}), 400
 
