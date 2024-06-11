@@ -7,7 +7,8 @@ from database.option_db import OptionDatabase
 from database.transaction_db import TransactionDatabase
 from database.user_db import UserDatabase
 from charts.alpha_vantage import query_ticker, query_ticker_by_date
-from trade_engine.models import OptionDataPost, OptionDataGet, TransactionData
+from trade_engine.models.option_data import OptionDataPost, OptionDataGet
+from trade_engine.models.transaction_data import TransactionData
 from trade_engine.util_functions import *
 
 

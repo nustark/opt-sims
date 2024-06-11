@@ -1,5 +1,6 @@
 /venv
 /src/trade_engine/__pycache__
+/src/trade_engine/models/__pycache__
 /src/app/__pycache__
 /src/charts/__pycache__
 /src/database/__pycache__

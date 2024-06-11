@@ -55,5 +55,8 @@
 2. copy `Value`
 3. manage cookies in postman and set name = `session` and value equal to `Value` from the browser
 
+##### common bugs while running
+- `test_utils.py` throws `ModuleNotFoundError: No module named 'trade_engine'`: make sure `sys.path.append...` comes before the 'trade-engine' module imports and save without formatting 
+
 ### links
 - https://www.investopedia.com/terms/o/option.asp

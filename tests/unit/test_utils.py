@@ -1,21 +1,21 @@
 
 import sys
 import os
+import unittest
+from datetime import datetime
+from pydantic import BaseModel, Field
 
 # add the 'src' directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', '..', 'src')))
 
-from trade_engine.models import OptionData
+from trade_engine.models.option_data import OptionDataPost
 from trade_engine.util_functions import calculate_option_profit
-from pydantic import BaseModel, Field
-from datetime import datetime
-import unittest
 
 
 class TestCalculateOptionProfit(unittest.TestCase):
     def test_call_option_buy_in_the_money(self):
-        option_data = OptionData(
+        option_data = OptionDataPost(
             symbol="GOOG",
             quantity=100,
             strike_price=120.0,
@@ -31,7 +31,7 @@ class TestCalculateOptionProfit(unittest.TestCase):
             option_data, execution_price, execution_date), expected_profit)
 
     def test_call_option_sell_out_of_the_money(self):
-        option_data = OptionData(
+        option_data = OptionDataPost(
             symbol="AAPL",
             quantity=50,
             strike_price=180.0,
@@ -48,7 +48,7 @@ class TestCalculateOptionProfit(unittest.TestCase):
             option_data, execution_price, execution_date), expected_profit)
 
     def test_put_option_buy_out_of_the_money(self):
-        option_data = OptionData(
+        option_data = OptionDataPost(
             symbol="TSLA",
             quantity=200,
             strike_price=300.0,
@@ -64,7 +64,7 @@ class TestCalculateOptionProfit(unittest.TestCase):
             option_data, execution_price, execution_date), expected_profit)
 
     def test_expired_option(self):
-        option_data = OptionData(
+        option_data = OptionDataPost(
             symbol="MSFT",
             quantity=75,
             strike_price=250.0,
