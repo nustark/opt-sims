@@ -7,7 +7,7 @@ from database.option_db import OptionDatabase
 from database.transaction_db import TransactionDatabase
 from database.user_db import UserDatabase
 from charts.alpha_vantage import query_ticker, query_ticker_by_date
-from trade_engine.models import OptionData, TransactionData
+from trade_engine.models import OptionDataPost, OptionDataGet, TransactionData
 from trade_engine.util_functions import *
 
 
@@ -57,7 +57,7 @@ def get_options():
 @ app_routes.route('/api/trade', methods=['POST'])
 def insert_trade():
     try:
-        trade_data = OptionData(**request.json)
+        trade_data = OptionDataPost(**request.json)
         option_db.insert_option(trade_data.dict())
     except ValidationError as e:
         return jsonify({"error": str(e)}), 400
@@ -74,7 +74,7 @@ trade engine routes
 @ app_routes.route('/api/trade/execute', methods=['POST'])
 def execute_trade():
     try:
-        trade_data = OptionData(**request.json)
+        trade_data = OptionDataGet(**request.json)
         # fetch ticker data from alphavantage, pass into util function
         transaction_data = TransactionData(
             symbol=trade_data.symbol,
