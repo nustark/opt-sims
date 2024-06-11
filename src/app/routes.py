@@ -76,7 +76,12 @@ trade engine routes
 def execute_trade():
     try:
         trade_data = OptionDataGet(**request.json)
-        # fetch ticker data from alphavantage, pass into util function
+        # hard-coded execution price/date
+        print('profit: ', calculate_option_profit(
+            trade_data, 1300.00, datetime(2024, 6, 15)))
+        # today_price = query_ticker_by_date(trade_data.symbol, datetime.now())
+        calc_profit = calculate_option_profit(
+            trade_data, 4.7, datetime.now())
         transaction_data = TransactionData(
             symbol=trade_data.symbol,
             quantity=trade_data.quantity,
@@ -85,18 +90,13 @@ def execute_trade():
             option_type=trade_data.option_type,
             action=trade_data.action,
             user_id=trade_data.user_id,
-            option_data_id=trade_data.id
+            option_data_id=trade_data.id,
+            profit=calc_profit
         )
-        # hard-coded execution price/date
-        print('profit: ', calculate_option_profit(
-            trade_data, 1300.00, datetime(2024, 6, 15)))
-        print('transaction object: ', transaction_data)
-        # option_db.insert_option(trade_data.dict())
         transact_db.insert_transaction(transaction_data.dict())
     except ValidationError as e:
         return jsonify({"error": str(e)}), 400
 
-    print(trade_data.dict())
     return jsonify({"message": "Trade executed successfully"})
 
 

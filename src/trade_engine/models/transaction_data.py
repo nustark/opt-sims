@@ -11,3 +11,4 @@ class TransactionData(BaseModel):
     action: str = Field(min_length=3, max_length=5)
     user_id: int = Field(gt=0)
     option_data_id: str = Field(min_length=20)
+    profit: int = Field(...)
