@@ -10,7 +10,12 @@ load_dotenv(env_file)
 
 app = Flask(__name__)
 
-app.secret_key = os.environ.get('FLASK_SECRET_KEY')
+app.secret_key = os.environ.get('NOT_FLASK_SECRET_KEY')
+# print(os.environ.get('MONGODB_ATLAS_USER'))
+# print(os.environ.get('NOT_FLASK_SECRET_KEY'))
+# print(os.environ.get('FLASK_SECRET_KEY'))
+# app.secret_key = '23'
+
 google_bp = make_google_blueprint(
     client_id=os.environ.get('GOOGLE_API_CLIENT_ID'),
     client_secret=os.environ.get('GOOGLE_API_CLIENT_SECRET'),
