@@ -1,5 +1,7 @@
 
 ## opt-sims
+### about
+Opt-sims is a paper-trading platform built in Python and Flask that allows users to simulate the buying and selling of option contracts. This project aims to put together an application in Python/Flask as well as demonstrate a basic understanding of how options work.
 
 ### requirements
 #### stack/technology
