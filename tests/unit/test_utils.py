@@ -1,4 +1,3 @@
-
 import sys
 import os
 import unittest
@@ -26,7 +25,29 @@ class TestCalculateOptionProfit(unittest.TestCase):
         )
         execution_price = 125.0
         execution_date = datetime(2023, 6, 15)
-        expected_profit = (125.0 - 120.0) * 100 - 120.0 * 100 * 0.01
+
+        # Calculate components
+        days_to_expiry = 15
+        time_value = days_to_expiry / 365.0
+        price_ratio = abs(125.0 - 120.0) / 120.0
+        volatility = 0.20
+        risk_free_rate = 0.03
+
+        # Calculate premium
+        premium = 120.0 * 100 * (
+            0.01  # Base premium
+            + (time_value * 0.02)  # Time value adjustment
+            + (price_ratio * 0.03)  # Delta adjustment
+            + (volatility * 0.04)  # Volatility adjustment
+            + (risk_free_rate * 0.01)  # Interest rate adjustment
+        )
+
+        # Calculate intrinsic value
+        intrinsic_value = (125.0 - 120.0) * 100
+
+        # Expected profit for buying in-the-money call
+        expected_profit = intrinsic_value - premium
+
         self.assertAlmostEqual(calculate_option_profit(
             option_data, execution_price, execution_date), expected_profit)
 
@@ -42,8 +63,26 @@ class TestCalculateOptionProfit(unittest.TestCase):
         )
         execution_price = 175.0
         execution_date = datetime(2023, 7, 15)
-        expected_profit = 180.0 * 50 * 0.01
-        # expected_profit = 180.0 * 50 * 1.01
+
+        # Calculate components
+        days_to_expiry = 16
+        time_value = days_to_expiry / 365.0
+        price_ratio = abs(175.0 - 180.0) / 180.0
+        volatility = 0.20
+        risk_free_rate = 0.03
+
+        # Calculate premium
+        premium = 180.0 * 50 * (
+            0.01  # Base premium
+            + (time_value * 0.02)  # Time value adjustment
+            + (price_ratio * 0.03)  # Delta adjustment
+            + (volatility * 0.04)  # Volatility adjustment
+            + (risk_free_rate * 0.01)  # Interest rate adjustment
+        )
+
+        # Expected profit for selling out-of-the-money call
+        expected_profit = premium
+
         self.assertAlmostEqual(calculate_option_profit(
             option_data, execution_price, execution_date), expected_profit)
 
@@ -59,7 +98,26 @@ class TestCalculateOptionProfit(unittest.TestCase):
         )
         execution_price = 310.0
         execution_date = datetime(2023, 8, 15)
-        expected_profit = -300.0 * 200 * 0.01
+
+        # Calculate components
+        days_to_expiry = 16
+        time_value = days_to_expiry / 365.0
+        price_ratio = abs(310.0 - 300.0) / 300.0
+        volatility = 0.20
+        risk_free_rate = 0.03
+
+        # Calculate premium
+        premium = 300.0 * 200 * (
+            0.01  # Base premium
+            + (time_value * 0.02)  # Time value adjustment
+            + (price_ratio * 0.03)  # Delta adjustment
+            + (volatility * 0.04)  # Volatility adjustment
+            + (risk_free_rate * 0.01)  # Interest rate adjustment
+        )
+
+        # Expected profit for buying out-of-the-money put
+        expected_profit = -premium
+
         self.assertAlmostEqual(calculate_option_profit(
             option_data, execution_price, execution_date), expected_profit)
 
